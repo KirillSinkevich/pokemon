@@ -9,6 +9,15 @@ export default {
     filename: 'bundle.js',
     publicPath: '/'
   },
+  devServer: {
+    clientLogLevel: 'info',
+    proxy: {
+      '/us/api/': {
+        target: 'https://www.pokemon.com',
+        "changeOrigin": true,
+      },
+    },
+  },
   module: {
     rules: [
       {
@@ -32,7 +41,7 @@ export default {
           'sass-loader',
         ],
       },
-    ]
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({

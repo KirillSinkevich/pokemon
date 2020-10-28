@@ -1,5 +1,6 @@
 export const getPokemonsData = () => {
-	return fetch(`https://pokeapi.co/api/v2/pokemon/`,
+	// return fetch(`https://pokeapi.co/api/v2/pokemon/`,
+	return fetch(`/us/api/pokedex/kalos`,
     {
     	method: 'GET',
     	headers: {
