@@ -14,11 +14,19 @@ class PokemonCard extends Component {
 
   componentDidMount() {
 
-  }
+	}
 
   render () {
     return (
-      <div className={styles.card}></div>
+      <div className={styles.card}>
+				<div className={styles.cardPhoto}>
+					<img src={this.props.data.ThumbnailImage}/>
+				</div>
+				<div className={styles.cardInfo}>
+					<p className={styles.cardInfo__id}>{`#${this.props.data.number}`}</p>
+					<p className={styles.cardInfo__name}>{this.props.data.name}</p>
+				</div>
+      </div>
     )
   }
 }
