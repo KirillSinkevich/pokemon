@@ -21,43 +21,17 @@ export default {
           loader: "babel-loader"
         }
       },
-      // {
-      //   test: /\.jsx?$/,
-      //   exclude: /node_modules/,
-      //   use: {
-      //       loader: 'babel-loader'
-      //   }
-      // },
-      // {
-      //   test: /\.css$/,
-      //   use: [
-      //       require.resolve('style-loader'),
-      //       {
-      //         loader: require.resolve('css-loader'),
-      //         options: {
-      //             importLoaders: 1,
-      //         },
-      //       },
-      //       {
-      //         loader: require.resolve('postcss-loader'),
-      //         options: {
-      //           ident: 'postcss',
-      //           plugins: () => [
-      //               require('postcss-flexbugs-fixes'),
-      //               autoprefixer({
-      //                   browsers: [
-      //                       '>1%',
-      //                       'last 4 versions',
-      //                       'Firefox ESR',
-      //                       'not ie < 9', // React doesn't support IE8 anyway
-      //                   ],
-      //                   flexbox: 'no-2009',
-      //               }),
-      //           ],
-      //         },
-      //       },
-      //   ],
-      // },
+      {
+        test: /\.s[ac]ss$/i,
+        use: [
+          // Creates `style` nodes from JS strings
+          'style-loader',
+          // Translates CSS into CommonJS
+          'css-loader',
+          // Compiles Sass to CSS
+          'sass-loader',
+        ],
+      },
     ]
   },
   plugins: [

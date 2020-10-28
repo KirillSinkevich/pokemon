@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-// import styles from './index.module.scss';
+import styles from './index.module.scss';
 
 import { getPokemonsData } from './../../api/api.js';
 
@@ -20,7 +20,7 @@ class PokemonList extends Component {
 
   render () {
     return (
-      <div>PokemonList</div>
+      <div className={styles.container}>PokemonList</div>
     )
   }
 }
