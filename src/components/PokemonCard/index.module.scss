@@ -1,8 +1,9 @@
 .card {
-	height: 300px;
-	// width: calc(25% - 20px);
 	width: calc(1140px / 4 - 20px);
+	height: 340px;
 	margin: 0 10px 50px 10px;
+	border-radius: 10px;
+	overflow: hidden;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -11,22 +12,37 @@
 	&:hover {
 		transform: scale(1.01);
 		box-shadow: 0 0 15px 3px rgba(128, 128, 128, 0.15);
+		.cardInfo__star {
+			// display: block;
+			opacity: 1;
+		}
 	}
 
+	
 	&Photo {
-		// width: 90%;
-		max-width: 215px;
-		max-height: 215px;
+		width: 100%;
+		// max-width: 215px;
+		// max-height: 215px;
 		background-color: rgba(128, 128, 128, 0.2);
-
+		
 		& >img {
 			width: 100%;
 		}
 	}
-
+	
 	&Info {
-		width: 170px;
-		margin-top: 5px;
+		width: 220px;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		
+		&__wrapper {
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			align-items: flex-start;
+		}
 
 		&__id {
 			font-size: 14px;
@@ -34,11 +50,40 @@
 			font-weight: bold;
 			margin: 5px 0;
 		}
-
+		
 		&__name {
 			font-size: 22px;
 			color: #313131;
-			margin: 15px 0;
+			margin: 10px 0;
+		}
+		
+		&__star {
+			// display: none;
+			opacity: 0;
+			width: 25px;
+			transition: 0.2s;
+
+			& > svg {
+				path {
+					stroke: gold;
+					stroke-width: 15px;
+					fill: none;
+				}
+			}
+
+			&.active {
+				// display: block;
+				opacity: 1;
+				& > svg {
+					path {
+						fill: gold;
+					}
+				}	
+			}
+			
+			&:hover {
+				transform: scale(1.3);
+			}
 		}
 	}
 }
