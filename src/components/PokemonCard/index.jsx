@@ -6,8 +6,6 @@ import Star from './../../shared/icons/star.svg'
 
 import styles from './index.module.scss';
 
-// import { getPokemonsData } from './../../api/api.js';
-
 class PokemonCard extends Component {
   constructor(props) {
     super(props)

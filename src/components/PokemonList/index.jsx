@@ -11,7 +11,6 @@ import styles from './index.module.scss';
 import { getPokemonsList } from './../../api/api.js';
 
 import PokemonCard from './../PokemonCard'
-import PokemonInfoModal from './../PokemonInfoModal'
 
 class PokemonList extends Component {
   constructor(props) {

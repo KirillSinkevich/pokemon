@@ -55,7 +55,6 @@
 		}
 		
 		&__star {
-			// display: none;
 			opacity: 0;
 			width: 25px;
 			transition: 0.2s;
@@ -69,7 +68,6 @@
 			}
 
 			&.active {
-				// display: block;
 				opacity: 1;
 				& > svg {
 					path {
@@ -89,12 +87,6 @@
 	.card {
 		width: calc(1140px / 3 - 20px);
 		height: 450px;
-
-		&Info {
-			&__name {
-				// font-size: 16px;
-			}
-		}
 	}
 }
 
