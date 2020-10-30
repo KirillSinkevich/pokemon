@@ -27,7 +27,7 @@ class PokemonCard extends Component {
 	}
 
 	clickCard = () => {
-		this.props.history.push(`/pokemon/${this.props.data.name}`)
+		this.props.history.push(`/pokemon/${this.props.data.slug}`)
 	}
 
 	clickStar = (e) => {
@@ -66,14 +66,12 @@ class PokemonCard extends Component {
 						<p className={styles.cardInfo__id}>{`#${this.props.data.number}`}</p>
 						<p className={styles.cardInfo__name}>{this.props.data.name}</p>
 					</div>
-					{	!this.props.isFavourite &&
-						<div 
-							className={styles.cardInfo__star + ' ' + (this.state.isFavourite && styles.active)} 
-							onClick={(e) => this.clickStar(e)}
-						>
-							<Star/>
-						</div>
-					}
+					<div 
+						className={styles.cardInfo__star + ' ' + (this.state.isFavourite && styles.active)} 
+						onClick={(e) => this.clickStar(e)}
+					>
+						<Star/>
+					</div>
 				</div>
       </div>
     )
