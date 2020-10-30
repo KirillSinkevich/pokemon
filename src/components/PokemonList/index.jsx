@@ -4,7 +4,7 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-
+import { connect } from 'react-redux'
 import styles from './index.module.scss';
 
 import { getPokemonsData } from './../../api/api.js';
@@ -16,17 +16,18 @@ class PokemonList extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      dataList: [],
-      counter: 20,
+      pokemonList: [],
     }
     this.list = React.createRef()
   }
 
   componentDidMount() {
     getPokemonsData().then( res => {
-      this.setState({dataList: this.delDuplicates(res)})
+      this.setState({pokemonList: this.delDuplicates(res)})
     })
+    this.props.setPokemonList(JSON.parse(localStorage.getItem("favouritePokemon")))
   }
+
   // iterate over the array to remove duplicate pokemon
   delDuplicates = (arr) => {
     let copyArr = [];
@@ -48,27 +49,28 @@ class PokemonList extends Component {
     if(scrollBottom === scrollHeight) { this.setState({counter: this.state.counter + 20})}
   }
 
-  byField = (field) => {
-    debugger
-    return (a, b) => a[field] > b[field] ? 1 : -1;
-  }
-
   render () {
     return (
       <div className={styles.container} id="list">
-        <div className={styles.mainList} onScroll={e => this.onScroll()} ref={this.list}>
-          {
-            this.state.dataList && this.state.dataList.slice(0, this.state.counter).map( (pokemonInfo, index) => {
-              return <PokemonCard key={index} data={pokemonInfo}/>
-            })
-          }
+        <div className={styles.container__mainList}>
+          <div className={styles.container__mainList__headers}>Pokemon list</div>
+          <div className={styles.container__mainList__list} onScroll={e => this.onScroll()} ref={this.list}>
+            {
+              this.state.pokemonList && this.state.pokemonList.slice(0, this.state.counter).map( (pokemonInfo, index) => {
+                return <PokemonCard key={index} data={pokemonInfo}/>
+              })
+            }
+          </div>
         </div>
-        <div className={styles.favouritesList}>
-          {
-            JSON.parse(localStorage.getItem("favouritePokemon")).sort( (a, b) => {return a.id > b.id ? 1 : -1}).map( (pokemonInfo, index) => {
-              return <PokemonCard key={index} data={pokemonInfo}/>
-            })
-          }
+        <div className={styles.container__favouritesList  + ' ' + (this.props.favouritePokemon.length === 0 && styles.fullWidth)}>
+          <div className={styles.container__favouritesList__headers}>Favourite pokemon list</div>
+          <div className={styles.container__favouritesList__list}>
+            {
+              this.props.favouritePokemon && this.props.favouritePokemon.sort( (a, b) => {return a.id > b.id ? 1 : -1}).map( (pokemonInfo, index) => {
+                return <PokemonCard key={index} data={pokemonInfo} isFavourite={true}/>
+              })
+            }
+          </div>
         </div>
         <Switch>
           <Route path="/pokemon/:pokemonName">
@@ -80,5 +82,16 @@ class PokemonList extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    favouritePokemon: state.favouritePokemon
+  }
+}
 
-export default PokemonList;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setPokemonList: (data) => dispatch({ type: 'SET_POKEMON_LIST', value: data})
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PokemonList);

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from "react-router";
+import { connect } from 'react-redux'
 
 import Star from './../../shared/icons/star.svg'
 
@@ -19,11 +20,23 @@ class PokemonCard extends Component {
 		this.isFavourite()
 	}
 
-	clickStar = () => {
+	componentDidUpdate(prevProps, prevState) {
+		if(prevProps.favouritePokemon !== this.props.favouritePokemon) {
+			this.isFavourite()
+		}
+	}
+
+	clickCard = () => {
+		this.props.history.push(`/pokemon/${this.props.data.name}`)
+	}
+
+	clickStar = (e) => {
+		e.stopPropagation()
 		let favouriteArr = localStorage.getItem("favouritePokemon") !== null ? JSON.parse(localStorage.getItem("favouritePokemon")) : []
 		if(favouriteArr.every(item => {return item.id !== this.props.data.id})) {
 			favouriteArr.push(this.props.data),
 			localStorage.setItem("favouritePokemon", JSON.stringify(favouriteArr))
+			this.props.setPokemonList(favouriteArr)
 			this.setState({isFavourite: true})
 		} else {
 			let index;
@@ -31,19 +44,20 @@ class PokemonCard extends Component {
 				item.id === this.props.data.id && (index = arrIndex)
 			})
 			favouriteArr.splice(index, 1)
+			this.props.setPokemonList(favouriteArr)
 			localStorage.setItem("favouritePokemon", JSON.stringify(favouriteArr))
 			this.setState({isFavourite: false})
 		}		
 	}
 
 	isFavourite = () => {
-		let favouriteArr = JSON.parse(localStorage.getItem("favouritePokemon"))
-		favouriteArr.some( item => { return item.id === this.props.data.id }) && this.setState({isFavourite: true})
+		this.props.favouritePokemon.some( item => { 
+			return item.id === this.props.data.id }) ? this.setState({isFavourite: true}) : this.setState({isFavourite: false})
 	}
 
   render () {
     return (
-      <div className={styles.card} onClick={() => {this.props.history.push(`/pokemon/${this.props.data.name}`)}}>
+      <div className={styles.card} onClick={() => this.clickCard()}>
 				<div className={styles.cardPhoto}>
 					<img src={this.props.data.ThumbnailImage}/>
 				</div>
@@ -52,14 +66,30 @@ class PokemonCard extends Component {
 						<p className={styles.cardInfo__id}>{`#${this.props.data.number}`}</p>
 						<p className={styles.cardInfo__name}>{this.props.data.name}</p>
 					</div>
-					<div className={styles.cardInfo__star + ' ' + (this.state.isFavourite && styles.active)} onClick={() => this.clickStar()}>
-						<Star/>
-					</div>
+					{	!this.props.isFavourite &&
+						<div 
+							className={styles.cardInfo__star + ' ' + (this.state.isFavourite && styles.active)} 
+							onClick={(e) => this.clickStar(e)}
+						>
+							<Star/>
+						</div>
+					}
 				</div>
       </div>
     )
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    favouritePokemon: state.favouritePokemon
+  }
+}
 
-export default withRouter(PokemonCard);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setPokemonList: (data) => dispatch({ type: 'SET_POKEMON_LIST', value: data})
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PokemonCard));
