@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
 } from "react-router-dom";
@@ -11,6 +10,7 @@ import styles from './index.module.scss';
 import { getPokemonsList } from './../../api/api.js';
 
 import PokemonCard from './../PokemonCard'
+import PokemonInfoModal from './../PokemonInfoModal'
 
 class PokemonList extends Component {
   constructor(props) {
@@ -53,7 +53,7 @@ class PokemonList extends Component {
 
   render () {
     return (
-      <div className={styles.container} id="list">
+      <div className={styles.container}>
         <div className={styles.container__mainList}>
           <div className={styles.container__mainList__headers}>Pokemon list</div>
           <div className={styles.container__mainList__list} onScroll={e => this.onScroll()} ref={this.list}>
@@ -74,6 +74,11 @@ class PokemonList extends Component {
             }
           </div>
         </div>
+        <Switch>
+          <Route path="/pokemon/:pokemonName">
+            <PokemonInfoModal/>
+          </Route>
+        </Switch>
       </div>
     )
   }

@@ -13,19 +13,19 @@ import reducer from './redux/reducer'
 const store = createStore(reducer);
 
 import PokemonList from './components/PokemonList'
-import PokemonInfoModal from './components/PokemonInfoModal'
+// import PokemonInfoModal from './components/PokemonInfoModal'
 
 const App = () => {
   return <div>
     <Provider store={store}>
       <Router>
         <Switch>
-          <Route exact path="/">
+          <Route exact path="/*">
             <PokemonList/>
           </Route>
-          <Route path="/pokemon/:pokemonName">
+          {/* <Route path="/pokemon/:pokemonName">
             <PokemonInfoModal/>
-          </Route>
+          </Route> */}
         </Switch>
       </Router>
     </Provider>

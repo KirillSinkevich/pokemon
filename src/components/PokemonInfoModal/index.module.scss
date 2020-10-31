@@ -1,14 +1,16 @@
 .modal {
-	width: 1120px;
-	height: 500px;
+	max-width: 1120px;
+	width: 100%;
+	max-height: 500px;
+	height: 100%;
 	background-color: #FFF;
 	outline: none;
 	border-radius: 15px;
+	overflow: hidden;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 50px 75px;
-	box-sizing: border-box;
+	margin: 0 25px;
 }
 
 .overlay {
@@ -24,89 +26,111 @@
 }
 
 .photo {
-	width: 350px;
+	flex: 2 2 35%;
 	& > img {
 		width: 100%;
+		height: 100%;
 	}
 }
 
-.infoContainer {
-	width: 500px;
-	height: 300px;
+.info {
+	flex: 1 1 65%;
+	height: 100%;
 	background-color: #30A7D7;
-	border-radius: 15px;
 	display: flex;
 	flex-direction: column;
+	padding: 75px 75px 0px 75px;
+	box-sizing: border-box;
 
-	&__wrapper {
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		flex: 1 1 90%;
-	}
-
-	&__pokemonName {
-		flex: 1 1 10%;
-		padding-top: 15px;
-		font-size: 25px;
-		text-align: center;
-		box-sizing: border-box;
+	&__name {
+		font-size: 38px;
 		line-height: 1;
+		color: #ffffff;
+		margin-bottom: 50px;
 	}
 
-	&__characteristics {
-		flex: 1 1 50%;
-
-		&__name, &__value {
-			margin-top: 25px;
-			font-size: 20px;
-			line-height: 1;
-			color: #ffffff;
-			text-align: center;
-			box-sizing: border-box;
-		}
-
-		&__value {
-			color: #000000;
-		}
-	}
-}
-
-@media (max-width: 1140px), (max-height: 960px){
-	.modal {
-		height: 85vh;
-		width: 85vw;
+	&__poke {
 		display: flex;
-		justify-content: space-around;
-		flex-direction: column;
-		padding: 15px;
-	}
+		flex-wrap: wrap;
+		height: inherit;
 
-	.photo {
-		width: 200px;
-	}
+		&__spec {
+			flex: 1 1 50%;
+			color: rgb(220, 220, 220);
 
-	.infoContainer {
-		width: 90%;
-	}	
+			&__name {
+				font-size: 28px;
+				line-height: 1;
+			}
+
+			&__value {
+				font-size: 18px;
+				margin-top: 5px;
+			}
+		}
+	}
 }
 
-@media (max-width: 480px), (max-height: 680px){
-	.infoContainer__characteristics {
+@media (max-width: 760px), (max-height: 560px){
+	.info {
+		padding: 25px 50px 0 50px;
 		&__name {
-			font-size: 18px;
+			font-size: 32px;
+			margin-bottom: 35px;
 		}
+	
+		&__poke {
+			flex-direction: column;
+			&__spec {
+				display: flex;
+				flex-direction: row;
+				flex: 1 1 auto;
+				// flex: 1 1 100%;
+				&__name {
+					flex: 1 1 100px;
+					font-size: 24px;
+				}
+	
+				&__value {
+					font-size: 16px;
+					padding-right: 10px;
+					flex: 1 0 auto;
+					margin-top: 0px;
+					margin-left: 25px;
+				}
+			}
+		}
+	}
+}
 
-		&__value {
-			font-size: 16px;
-		}
+@media (max-width: 560px), (max-height: 375px){
+	.modal {
+		flex-direction: column;
+		height: 95vh;
 	}
 
 	.photo {
-		width: 120px;
+		width: 125px;
 	}
 
-	.infoContainer {
-		height: 60%;
-	}	
+	.info {
+		padding: 15px 50px 0 50px;
+		width: 100%;
+		&__name {
+			font-size: 26px;
+			margin-bottom: 15px;
+		}
+
+		&__poke {
+			&__spec {
+				&__name {
+					font-size: 20px;
+				}
+
+				&__value {
+					font-size: 14px;
+				}
+			}
+		}
+	}
 }
