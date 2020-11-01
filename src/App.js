@@ -13,7 +13,6 @@ import reducer from './redux/reducer'
 const store = createStore(reducer);
 
 import PokemonList from './components/PokemonList'
-// import PokemonInfoModal from './components/PokemonInfoModal'
 
 const App = () => {
   return <div>
@@ -23,9 +22,6 @@ const App = () => {
           <Route exact path="/*">
             <PokemonList/>
           </Route>
-          {/* <Route path="/pokemon/:pokemonName">
-            <PokemonInfoModal/>
-          </Route> */}
         </Switch>
       </Router>
     </Provider>

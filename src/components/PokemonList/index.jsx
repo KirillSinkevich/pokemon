@@ -14,41 +14,53 @@ import PokemonInfoModal from './../PokemonInfoModal'
 
 class PokemonList extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       pokemonList: [],
-      choosePokemonData: {},
       counter: 20,
-    }
-    this.list = React.createRef()
+    };
+    this.list = React.createRef();
   }
 
   componentDidMount() {
-    getPokemonsList().then( res => {
-      this.setState({pokemonList: this.delDuplicates(res)})
+    getPokemonsList().then( data => {
+      this.setState({pokemonList: this.removeDuplicates(data)});
     })
-    this.props.setPokemonList(JSON.parse(localStorage.getItem("favouritePokemon")))
+    this.loadFromLocalStorage();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if(prevProps.favouritePokemon !== this.props.favouritePokemon) {
+      this.updateLocalStorage(this.props.favouritePokemon);
+    }
+  }
+
+  loadFromLocalStorage = () => {
+    this.props.setPokemonList(JSON.parse(localStorage.getItem("favouritePokemon")));
+  }
+
+  updateLocalStorage = data => {
+    localStorage.setItem("favouritePokemon", JSON.stringify(data));
   }
 
   // iterate over the array to remove duplicate pokemon
-  delDuplicates = (arr) => {
-    let copyArr = [];
-    arr.forEach( (item, i) => {
-      if(copyArr.length === 0) {
-        copyArr.push(item)
-      } else {
-        copyArr.every(copyItem => { return copyItem.id !== item.id }) && copyArr.push(item)
-      }
+  removeDuplicates = (items) => {
+    let collected = [];
+    
+    return items.filter(item => {
+      collected.push(item.id);
+      return collected.indexOf(item.id) === collected.length - 1;
     })
-    return copyArr
   }
   // checking for pagination
   onScroll = () => {
-    const scrollHeight = this.list.current.scrollHeight
-    const clientHeight = this.list.current.clientHeight
-    const scrollTop = this.list.current.scrollTop
-    const scrollBottom = clientHeight + scrollTop
-    if(scrollBottom === scrollHeight) { this.setState({counter: this.state.counter + 20})}
+    const scrollHeight = this.list.current.scrollHeight;
+    const clientHeight = this.list.current.clientHeight;
+    const scrollTop = this.list.current.scrollTop;
+    const scrollBottom = clientHeight + scrollTop;
+    if (scrollBottom === scrollHeight) { 
+      this.setState({counter: this.state.counter + 20});
+    }
   }
 
   render () {
@@ -56,7 +68,7 @@ class PokemonList extends Component {
       <div className={styles.container}>
         <div className={styles.container__mainList}>
           <div className={styles.container__mainList__headers}>Pokemon list</div>
-          <div className={styles.container__mainList__list} onScroll={e => this.onScroll()} ref={this.list}>
+          <div className={styles.container__mainList__list} onScroll={this.onScroll} ref={this.list}>
             {
               this.state.pokemonList && this.state.pokemonList.slice(0, this.state.counter).map( (pokemonInfo, index) => {
                 return <PokemonCard key={index} data={pokemonInfo}/>

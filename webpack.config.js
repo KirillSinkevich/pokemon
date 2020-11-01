@@ -24,10 +24,7 @@ export default {
       {
         test: /\.s[ac]ss$/i,
         use: [
-          // Creates `style` nodes from JS strings
           'style-loader',
-          // Translates CSS into CommonJS
-          // 'css-loader',
           {
             loader: 'css-loader',
             options: {
@@ -36,7 +33,6 @@ export default {
               },
             }
           },
-          // Compiles Sass to CSS
           'sass-loader',
         ],
       },
@@ -49,7 +45,7 @@ export default {
           {
             loader: "react-svg-loader",
             options: {
-              jsx: true // true outputs JSX tags
+              jsx: true 
             }
           }
         ]
@@ -65,8 +61,6 @@ export default {
     new webpack.HotModuleReplacementPlugin(),
   ],
   mode: 'development',
-  // mode: 'production',
   devtool: 'source-map',
-  // devtool: 'eval-source-map'
 }
 

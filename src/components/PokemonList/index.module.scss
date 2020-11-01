@@ -1,89 +1,89 @@
 .container {
-	max-width: 1140px;
-	margin: 0 auto;
-	padding: 0px 10px 0 10px;
-	display: flex;
-	flex-direction: row;
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0px 10px 0 10px;
+  display: flex;
+  flex-direction: row;
 
-	&__mainList, &__favouritesList {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		flex: 1 1 570px;
-		transition: 0.2s;
-		
-		&__headers {
-			margin: 15px 0 5px;
-			font-size: 25px;
-			line-height: 1;
-		}
+  &__mainList, &__favouritesList {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1 1 570px;
+    transition: 0.2s;
+    
+    &__headers {
+      margin: 15px 0 5px;
+      font-size: 25px;
+      line-height: 1;
+    }
 
-		&__list {
-			display: flex;
-			flex-direction: row;
-			flex-wrap: wrap;
-			justify-content: flex-start;
-			align-items: flex-start;
-			overflow: scroll;
-			width: 100%;
-			max-height: calc(100vh - 55px);
-			height: max-content;
-			padding-top: 10px;
-		}
-	}
+    &__list {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      align-items: flex-start;
+      overflow: scroll;
+      width: 100%;
+      max-height: calc(100vh - 55px);
+      height: max-content;
+      padding-top: 10px;
+    }
+  }
 
-	&__favouritesList.fullWidth{
-		display: none;
-	}
+  &__favouritesList.fullWidth{
+    display: none;
+  }
 }
 
 @media (max-width: 1160px) {
-	.container {
-		&__mainList, &__favouritesList {
+  .container {
+    &__mainList, &__favouritesList {
 
-			&__list {
-				justify-content: center;
-			}
-		}
-	}
+      &__list {
+        justify-content: center;
+      }
+    }
+  }
 }
 
 @media (max-width: 768px) {
-	.container {
-		&__mainList, &__favouritesList {
-			&__headers {
-				font-size: 20px;
-			}
-		}
-	}
+  .container {
+    &__mainList, &__favouritesList {
+      &__headers {
+        font-size: 20px;
+      }
+    }
+  }
 }
 
 @media (max-width: 425px) {
-	.container {
-		&__mainList, &__favouritesList {
-			&__headers {
-				font-size: 18px;
-			}
-		}
-	}
+  .container {
+    &__mainList, &__favouritesList {
+      &__headers {
+        font-size: 18px;
+      }
+    }
+  }
 }
 
 @media (max-width: 375px) {
-	.container {
-		&__mainList, &__favouritesList {
-			&__headers {
-				font-size: 16px;
-			}
-		}
-	}
+  .container {
+    &__mainList, &__favouritesList {
+      &__headers {
+        font-size: 16px;
+      }
+    }
+  }
 }
 
 @media (max-height: 460px) {
-	.container {
-		&__mainList, &__favouritesList {
-			&__headers {
-				font-size: 20px;
-			}
-		}
-	}
+  .container {
+    &__mainList, &__favouritesList {
+      &__headers {
+        font-size: 20px;
+      }
+    }
+  }
 }

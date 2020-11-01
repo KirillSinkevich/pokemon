@@ -3,19 +3,19 @@ import webpackDevServer from 'webpack-dev-server'
 import webpackConfig from './webpack.config'
 import { port, host } from './config/main'
 const options = { contentBase: './dist', hot: true, host: 'localhost',
-    proxy: [
-      {
-          path: '/pokemon/',
-          target: 'http://localhost:3000',
-          logLevel: 'debug',
-          pathRewrite: {'^/pokemon/.*': '/'}
-      },
-      {
-          path: '/us/api/',
-          target: 'https://www.pokemon.com',
-          changeOrigin: true,
-          logLevel: 'debug'
-      }
+  proxy: [
+    {
+      path: '/pokemon/',
+      target: 'http://localhost:3000',
+      logLevel: 'debug',
+      pathRewrite: {'^/pokemon/.*': '/'}
+    },
+    {
+      path: '/us/api/',
+      target: 'https://www.pokemon.com',
+      changeOrigin: true,
+      logLevel: 'debug'
+    }
   ]}
 webpackDevServer.addDevServerEntrypoints(webpackConfig, options)
 const compiler = webpack(webpackConfig)

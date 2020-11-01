@@ -6,144 +6,93 @@ import { getPokemonData } from './../../api/api.js';
 import styles from './index.module.scss';
 
 class PokemonInfoModal extends Component {
-	constructor(props) {
-		super(props)
-		this.state = {
-			pokemonData: {}
-		}
-	}
+  constructor(props) {
+    super(props);
+    this.state = {
+      pokemon: {}
+    };
+  }
 
-	componentDidMount() {
-		getPokemonData(this.props.match.params.pokemonName).then( res => {
-			this.setState({pokemonData: res})
-		})
-		// Object.keys(this.state.pokemonData).length > 0 && this.createNumber()
-	}
+  componentDidMount() {
+    getPokemonData(this.props.match.params.pokemonName).then(data => this.setState({pokemon: data}))
+  }
 
-	createNumber = () => {
-		let number = '000';
-		let id = this.state.pokemonData.id.toString()
-		return id.length < 3 ? number.substr(0, number.length - id.length) + id : id
+  generateNumber = () => {
+    let number = '000';
+    let id = this.state.pokemon.id.toString();
+    return id.length < 3 ? number.substr(0, number.length - id.length) + id : id;
+  }
 
-	}
+  dataAvailable = () => {
+    return Object.keys(this.state.pokemon).length > 0;
+  }
 
-	render () {
-		return (
-			<Modal
-				isOpen={true}
-				className={styles.modal}
-				overlayClassName={styles.overlay}
-				onRequestClose={() => this.props.history.push("/")}
-				appElement={document.getElementById("app")}
-			>
-				<div className={styles.photo}>
-					{
-						Object.keys(this.state.pokemonData).length > 0 && 
-						// <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${this.state.pokemonData.id}.png`} />
-						<img src={`https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${this.createNumber()}.png`} />
-					}
-				</div>
-				<div className={styles.info}>
-					<div className={styles.info__name}>
-					  {
-							Object.keys(this.state.pokemonData).length > 0 &&
-							this.state.pokemonData.name[0].toUpperCase() + this.state.pokemonData.name.slice(1)
-						}
-					</div>
-					<div className={styles.info__poke}>
-						<div className={styles.info__poke__spec}>
-							<div className={styles.info__poke__spec__name}>Height</div>
-							<div className={styles.info__poke__spec__value}>
-								{`${Object.keys(this.state.pokemonData).length > 0 ? this.state.pokemonData.height : ''} "`}
-							</div>
-						</div>
-						<div className={styles.info__poke__spec}>
-							<div className={styles.info__poke__spec__name}>Weight</div>
-							<div className={styles.info__poke__spec__value}>
-								{`${Object.keys(this.state.pokemonData).length > 0 ? this.state.pokemonData.weight : ''} lbs`}
-							</div>
-						</div>
-						<div className={styles.info__poke__spec}>
-							<div className={styles.info__poke__spec__name}>Abilities</div>
-							<div className={styles.info__poke__spec__value}>
-								{
-									Object.keys(this.state.pokemonData).length > 0 && 
-									this.state.pokemonData.abilities
-									.map(item => item.ability)
-									.map(item => item.name[0].toUpperCase() + item.name.slice(1))
-									.join(', ')
-								}
-							</div>
-						</div>
-						<div className={styles.info__poke__spec}>
-							<div className={styles.info__poke__spec__name}>Type</div>
-							<div className={styles.info__poke__spec__value}>
-								{
-									Object.keys(this.state.pokemonData).length > 0 && 
-									this.state.pokemonData.types
-									.map(item => item.type)
-									.map(item => item.name[0].toUpperCase() + item.name.slice(1))
-									.join(', ')
-								}
-							</div>
-						</div>
-					</div>
-				</div>
-				{/* <div className={styles.photo}>
-					{
-						Object.keys(this.state.pokemonData).length > 0 && 
-						<img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${this.state.pokemonData.id}.png`} />
-					}
-				</div>
-				<div className={styles.infoContainer}>
-					<div className={styles.infoContainer__pokemonName}>
-						{
-							Object.keys(this.state.pokemonData).length > 0 &&
-							this.state.pokemonData.name[0].toUpperCase() + this.state.pokemonData.name.slice(1)
-						}
-					</div>
-					<div className={styles.infoContainer__wrapper}>
-						<div className={styles.infoContainer__characteristics}>
-							<div className={styles.infoContainer__characteristics__name}>Height</div>
-							<div className={styles.infoContainer__characteristics__value}>
-								{`${this.state.pokemonData.height} "`}
-							</div>
-						</div>
-						<div className={styles.infoContainer__characteristics}>
-							<div className={styles.infoContainer__characteristics__name}>Weight</div>
-							<div className={styles.infoContainer__characteristics__value}>
-								{`${this.state.pokemonData.weight} lbs`}
-							</div>
-						</div>
-						<div className={styles.infoContainer__characteristics}>
-							<div className={styles.infoContainer__characteristics__name}>Abilities</div>
-							<div className={styles.infoContainer__characteristics__value}>
-								{
-									Object.keys(this.state.pokemonData).length > 0 && 
-									this.state.pokemonData.abilities
-									.map(item => item.ability)
-									.map(item => item.name[0].toUpperCase() + item.name.slice(1))
-									.join(', ')
-								}
-							</div>
-						</div>
-						<div className={styles.infoContainer__characteristics}>
-							<div className={styles.infoContainer__characteristics__name}>Type</div>
-							<div className={styles.infoContainer__characteristics__value}>
-								{
-									Object.keys(this.state.pokemonData).length > 0 && 
-									this.state.pokemonData.types
-									.map(item => item.type)
-									.map(item => item.name[0].toUpperCase() + item.name.slice(1))
-									.join(', ')
-								}
-							</div>
-						</div>
-					</div>
-				</div> */}
-			</Modal>
-		)
-	}
+  toUpperCaseName = (name) => {
+    return name[0].toUpperCase() + name.slice(1);
+  }
+
+  displayList = (list, field) => {
+    return this.state.pokemon[list]
+    .map(item => item[field])
+    .map(item => this.toUpperCaseName(item.name))
+    .join(', ');
+  }
+
+  render () {
+    return (
+      <Modal
+        isOpen={true}
+        className={styles.modal}
+        overlayClassName={styles.overlay}
+        onRequestClose={() => this.props.history.push("/")}
+        appElement={document.getElementById("app")}
+      >
+        <div className={styles.photo}>
+          {
+            this.dataAvailable() && 
+            <img src={`https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${this.generateNumber()}.png`} />
+          }
+        </div>
+        <div className={styles.info}>
+          <div className={styles.info__name}>
+            {
+              this.dataAvailable() && this.toUpperCaseName(this.state.pokemon.name)
+            }
+          </div>
+          <div className={styles.info__poke}>
+            <div className={styles.info__poke__spec}>
+              <div className={styles.info__poke__spec__name}>Height</div>
+              <div className={styles.info__poke__spec__value}>
+                {`${this.dataAvailable() ? this.state.pokemon.height : ''} "`}
+              </div>
+            </div>
+            <div className={styles.info__poke__spec}>
+              <div className={styles.info__poke__spec__name}>Weight</div>
+              <div className={styles.info__poke__spec__value}>
+                {`${this.dataAvailable() ? this.state.pokemon.weight : ''} lbs`}
+              </div>
+            </div>
+            <div className={styles.info__poke__spec}>
+              <div className={styles.info__poke__spec__name}>Abilities</div>
+              <div className={styles.info__poke__spec__value}>
+                {
+                  this.dataAvailable() && this.displayList('abilities', 'ability')
+                }
+              </div>
+            </div>
+            <div className={styles.info__poke__spec}>
+              <div className={styles.info__poke__spec__name}>Type</div>
+              <div className={styles.info__poke__spec__value}>
+                {
+                  this.dataAvailable() && this.displayList('types', 'type')
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </Modal>
+    )
+  }
 }
 
 export default withRouter(PokemonInfoModal);

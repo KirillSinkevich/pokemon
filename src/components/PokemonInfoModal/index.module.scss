@@ -1,136 +1,135 @@
 .modal {
-	max-width: 1120px;
-	width: 100%;
-	max-height: 500px;
-	height: 100%;
-	background-color: #FFF;
-	outline: none;
-	border-radius: 15px;
-	overflow: hidden;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	margin: 0 25px;
+  max-width: 1120px;
+  width: 100%;
+  max-height: 500px;
+  height: 100%;
+  background-color: #FFF;
+  outline: none;
+  border-radius: 15px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 25px;
 }
 
 .overlay {
-	position: fixed;
-	top: 0px;
-	left: 0px;
-	right: 0px;
-	bottom: 0px;
-	background-color: rgba(28, 28, 28, 0.25);
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-color: rgba(28, 28, 28, 0.25);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .photo {
-	flex: 2 2 35%;
-	& > img {
-		width: 100%;
-		height: 100%;
-	}
+  flex: 2 2 35%;
+  & > img {
+    width: 100%;
+    height: 100%;
+  }
 }
 
 .info {
-	flex: 1 1 65%;
-	height: 100%;
-	background-color: #30A7D7;
-	display: flex;
-	flex-direction: column;
-	padding: 75px 75px 0px 75px;
-	box-sizing: border-box;
+  flex: 1 1 65%;
+  height: 100%;
+  background-color: #30A7D7;
+  display: flex;
+  flex-direction: column;
+  padding: 75px 75px 0px 75px;
+  box-sizing: border-box;
 
-	&__name {
-		font-size: 38px;
-		line-height: 1;
-		color: #ffffff;
-		margin-bottom: 50px;
-	}
+  &__name {
+    font-size: 38px;
+    line-height: 1;
+    color: #ffffff;
+    margin-bottom: 50px;
+  }
 
-	&__poke {
-		display: flex;
-		flex-wrap: wrap;
-		height: inherit;
+  &__poke {
+    display: flex;
+    flex-wrap: wrap;
+    height: inherit;
 
-		&__spec {
-			flex: 1 1 50%;
-			color: rgb(220, 220, 220);
+    &__spec {
+      flex: 1 1 50%;
+      color: rgb(220, 220, 220);
 
-			&__name {
-				font-size: 28px;
-				line-height: 1;
-			}
+      &__name {
+        font-size: 28px;
+        line-height: 1;
+      }
 
-			&__value {
-				font-size: 18px;
-				margin-top: 5px;
-			}
-		}
-	}
+      &__value {
+        font-size: 18px;
+        margin-top: 5px;
+      }
+    }
+  }
 }
 
 @media (max-width: 760px), (max-height: 560px){
-	.info {
-		padding: 25px 50px 0 50px;
-		&__name {
-			font-size: 32px;
-			margin-bottom: 35px;
-		}
-	
-		&__poke {
-			flex-direction: column;
-			&__spec {
-				display: flex;
-				flex-direction: row;
-				flex: 1 1 auto;
-				// flex: 1 1 100%;
-				&__name {
-					flex: 1 1 100px;
-					font-size: 24px;
-				}
-	
-				&__value {
-					font-size: 16px;
-					padding-right: 10px;
-					flex: 1 0 auto;
-					margin-top: 0px;
-					margin-left: 25px;
-				}
-			}
-		}
-	}
+  .info {
+    padding: 25px 50px 0 50px;
+    &__name {
+      font-size: 32px;
+      margin-bottom: 35px;
+    }
+  
+    &__poke {
+      flex-direction: column;
+      &__spec {
+        display: flex;
+        flex-direction: row;
+        flex: 1 1 auto;
+        &__name {
+          flex: 1 1 100px;
+          font-size: 24px;
+        }
+  
+        &__value {
+          font-size: 16px;
+          padding-right: 10px;
+          flex: 1 0 auto;
+          margin-top: 0px;
+          margin-left: 25px;
+        }
+      }
+    }
+  }
 }
 
 @media (max-width: 560px), (max-height: 375px){
-	.modal {
-		flex-direction: column;
-		height: 95vh;
-	}
+  .modal {
+    flex-direction: column;
+    height: 95vh;
+  }
 
-	.photo {
-		width: 125px;
-	}
+  .photo {
+    width: 125px;
+  }
 
-	.info {
-		padding: 15px 50px 0 50px;
-		width: 100%;
-		&__name {
-			font-size: 26px;
-			margin-bottom: 15px;
-		}
+  .info {
+    padding: 15px 50px 0 50px;
+    width: 100%;
+    &__name {
+      font-size: 26px;
+      margin-bottom: 15px;
+    }
 
-		&__poke {
-			&__spec {
-				&__name {
-					font-size: 20px;
-				}
+    &__poke {
+      &__spec {
+        &__name {
+          font-size: 20px;
+        }
 
-				&__value {
-					font-size: 14px;
-				}
-			}
-		}
-	}
+        &__value {
+          font-size: 14px;
+        }
+      }
+    }
+  }
 }
