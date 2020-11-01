@@ -18,12 +18,12 @@ class PokemonCard extends Component {
   }
 
   componentDidMount() {
-    this.isFavourite();
+    this.setIsFavourite();
   }
 
   componentDidUpdate(prevProps, prevState) {
     if(prevProps.favouritePokemon !== this.props.favouritePokemon) {
-      this.isFavourite();
+      this.setIsFavourite();
     }
   }
 
@@ -50,7 +50,7 @@ class PokemonCard extends Component {
     }		
   }
 
-  isFavourite = () => {
+  setIsFavourite = () => {
     this.setState({isFavourite: this.props.favouritePokemon.some(item => item.id === this.props.data.id)});
   }
 
