@@ -1,0 +1,15 @@
+.container {
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(to right, #e4e6ea 9%, #dfe0e4 41%, #ebecf1 92%);
+	animation: gradient 5s linear infinite forwards;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0px 0;
+  }
+  100% {
+    background-position: 100em 0;
+  }
+}

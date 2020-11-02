@@ -6,3 +6,9 @@ export const setPokemonList = data => {
     value: data
   }
 }
+
+export const toggleLoading = () => {
+  return {
+    type: actions.ACTION_TOGGLE_DATA_LOADING, 
+  }
+}

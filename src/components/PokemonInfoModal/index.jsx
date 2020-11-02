@@ -2,6 +2,14 @@ import React, { Component } from 'react';
 import Modal from 'react-modal';
 import { withRouter } from "react-router";
 import { getPokemonData } from './../../api/api.js';
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux';
+
+import { toggleLoading } from './../../redux/actions'
+
+import Loading from './../../shared/icons/loading.svg'
+
+import BlockPreloader from './../BlockPreloader'
 
 import styles from './index.module.scss';
 
@@ -9,12 +17,20 @@ class PokemonInfoModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      pokemon: {}
+      pokemon: {},
     };
   }
 
   componentDidMount() {
-    getPokemonData(this.props.match.params.pokemonName).then(data => this.setState({pokemon: data}))
+    this.getPokemon()
+  }
+
+  getPokemon = () => {
+    this.props.toggleLoading()
+    getPokemonData(this.props.match.params.pokemonName).then(data => {
+      this.setState({pokemon: data})
+      this.props.toggleLoading()
+    })
   }
 
   generateNumber = () => {
@@ -49,13 +65,16 @@ class PokemonInfoModal extends Component {
       >
         <div className={styles.photo}>
           {
-            this.dataAvailable() && 
-            <img src={`https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${this.generateNumber()}.png`} />
+            this.props.loading ? 
+            <Loading /> : 
+            this.dataAvailable() && <img src={`https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${this.generateNumber()}.png`} />
           }
         </div>
         <div className={styles.info}>
           <div className={styles.info__name}>
             {
+              this.props.loading ? 
+              <BlockPreloader /> : 
               this.dataAvailable() && this.toUpperCaseName(this.state.pokemon.name)
             }
           </div>
@@ -63,19 +82,29 @@ class PokemonInfoModal extends Component {
             <div className={styles.info__poke__spec}>
               <div className={styles.info__poke__spec__name}>Height</div>
               <div className={styles.info__poke__spec__value}>
-                {`${this.dataAvailable() ? this.state.pokemon.height : ''} "`}
+                {
+                  this.props.loading ? 
+                  <BlockPreloader /> : 
+                  `${this.dataAvailable() ? this.state.pokemon.height : ''} "`
+                }
               </div>
             </div>
             <div className={styles.info__poke__spec}>
               <div className={styles.info__poke__spec__name}>Weight</div>
               <div className={styles.info__poke__spec__value}>
-                {`${this.dataAvailable() ? this.state.pokemon.weight : ''} lbs`}
+                {
+                  this.props.loading ? 
+                  <BlockPreloader /> : 
+                  `${this.dataAvailable() ? this.state.pokemon.weight : ''} lbs`
+                }
               </div>
             </div>
             <div className={styles.info__poke__spec}>
               <div className={styles.info__poke__spec__name}>Abilities</div>
               <div className={styles.info__poke__spec__value}>
                 {
+                  this.props.loading ? 
+                  <BlockPreloader /> : 
                   this.dataAvailable() && this.displayList('abilities', 'ability')
                 }
               </div>
@@ -84,6 +113,8 @@ class PokemonInfoModal extends Component {
               <div className={styles.info__poke__spec__name}>Type</div>
               <div className={styles.info__poke__spec__value}>
                 {
+                  this.props.loading ? 
+                  <BlockPreloader /> : 
                   this.dataAvailable() && this.displayList('types', 'type')
                 }
               </div>
@@ -95,4 +126,14 @@ class PokemonInfoModal extends Component {
   }
 }
 
-export default withRouter(PokemonInfoModal);
+const mapStateToProps = (state) => {
+  return {
+    loading: state.loading
+  }
+}
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  toggleLoading
+}, dispatch)
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PokemonInfoModal));
