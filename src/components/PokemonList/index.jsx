@@ -59,7 +59,9 @@ class PokemonList extends Component {
     const scrollTop = this.list.current.scrollTop;
     const scrollBottom = clientHeight + scrollTop;
     if (scrollBottom === scrollHeight) { 
-      this.setState({counter: this.state.counter + 20});
+      this.setState((state) => {
+        return {counter: state.counter + 20};
+      });
     }
   }
 
