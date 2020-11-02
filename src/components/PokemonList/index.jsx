@@ -63,6 +63,11 @@ class PokemonList extends Component {
     }
   }
 
+  sortingList = (data) => {
+    let list = JSON.parse(JSON.stringify(data));
+    return list.sort( (a, b) => {return a.id > b.id ? 1 : -1});
+  }
+
   render () {
     return (
       <div className={styles.container}>
@@ -80,7 +85,7 @@ class PokemonList extends Component {
           <div className={styles.container__favouritesList__headers}>Favourite pokemon list</div>
           <div className={styles.container__favouritesList__list}>
             {
-              this.props.favouritePokemon && this.props.favouritePokemon.sort( (a, b) => {return a.id > b.id ? 1 : -1}).map( (pokemonInfo, index) => {
+              this.props.favouritePokemon && this.sortingList(this.props.favouritePokemon).map( (pokemonInfo, index) => {
                 return <PokemonCard key={index} data={pokemonInfo}/>
               })
             }
