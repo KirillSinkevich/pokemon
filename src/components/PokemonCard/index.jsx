@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from "react-router";
 import { connect } from 'react-redux'
 
-import { setPokemonList } from './../../redux/reducer'
+import { setPokemonList } from './../../redux/actions'
 
 import Star from './../../shared/icons/star.svg'
 

@@ -5,6 +5,9 @@ import {
 } from "react-router-dom";
 import { withRouter } from "react-router";
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux';
+import { setPokemonList } from './../../redux/actions'
+
 import styles from './index.module.scss';
 
 import { getPokemonsList } from './../../api/api.js';
@@ -36,7 +39,7 @@ class PokemonList extends Component {
   }
 
   loadFromLocalStorage = () => {
-    this.props.setPokemonList(JSON.parse(localStorage.getItem("favouritePokemon")));
+    localStorage.getItem("favouritePokemon") !== null && this.props.setPokemonList(JSON.parse(localStorage.getItem("favouritePokemon")));
   }
 
   updateLocalStorage = data => {
@@ -109,10 +112,8 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setPokemonList: (data) => dispatch({ type: 'SET_POKEMON_LIST', value: data})
-  }
-}
+const mapDispatchToProps = dispatch => bindActionCreators({
+  setPokemonList
+}, dispatch)
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PokemonList));
